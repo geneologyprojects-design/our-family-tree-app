@@ -2,10 +2,12 @@
 # Build stage
 FROM node:18-alpine AS build
 WORKDIR /app
-ENV NODE_ENV=production
 
-# Install dependencies (use package-lock.json if present)
+# Copy package manifests first to leverage layer caching
 COPY package*.json ./
+
+# Install dependencies INCLUDING devDependencies so Vite (a devDependency) is available for the build.
+# Do not set NODE_ENV=production before this step.
 RUN npm ci --prefer-offline --no-audit
 
 # Copy source and run build
@@ -26,9 +28,6 @@ RUN mkdir -p /etc/nginx/conf.d && \
       index index.html; \
       location / { \
         try_files $uri $uri/ /index.html; \
-      } \
-      location /_next/static/ { \
-        access_log off; \
       } \
     }' > /etc/nginx/conf.d/default.conf
 
