@@ -1,0 +1,11 @@
+services:
+  - type: static
+    name: our-family-tree
+    plan: free
+    staticPublishPath: ./dist
+    buildCommand: npm install && npm run build
+    envVars:
+      - key: VITE_SUPABASE_URL
+        value: https://czzzdwnnrwftallwkios.supabase.co
+      - key: VITE_SUPABASE_ANON_KEY
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6enpkd25ucndmdGFsbHdraW9zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQzMTM0OTIsImV4cCI6MjA3OTg4OTQ5Mn0.6XZ9xfcPZtJ780jAaJ92lMCcWQb0oejjm-Y5H-FcPkc
